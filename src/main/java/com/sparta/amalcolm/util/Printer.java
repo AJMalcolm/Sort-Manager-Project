@@ -24,6 +24,17 @@ public class Printer {
         }
     }
 
+    public static void printDoubleArray(double[] array){
+        for (int i = 0; i < array.length; i++){
+            if(i == array.length - 1){
+                System.out.printf("%s.\n", array[i]);
+            }
+            else{
+                System.out.printf("%s, ", array[i]);
+            }
+        }
+    }
+
     public static void printIntValue(int value){
         System.out.printf("%d ", value);
     }

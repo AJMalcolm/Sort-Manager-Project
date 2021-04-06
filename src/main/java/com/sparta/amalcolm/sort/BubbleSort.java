@@ -1,15 +1,15 @@
 package com.sparta.amalcolm.sort;
 
 import com.sparta.amalcolm.Interfaces.Sorter;
-import com.sparta.amalcolm.exceptions.EmptyArrayException;
 
-import com.sparta.amalcolm.util.userArrayInput;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class BubbleSort implements Sorter {
 
     public static final Logger logger = LogManager.getLogger(BubbleSort.class);
+
+    private static BubbleSort bubbleSortInstance = new BubbleSort();
 
     @Override
     public int[] sortArray(int[] inputArray) {
@@ -49,5 +49,9 @@ public class BubbleSort implements Sorter {
             logger.error("The BubbleSort class has received a null array.");
             return null;
         }
+    }
+
+    public static BubbleSort getInstance(){
+        return bubbleSortInstance;
     }
 }

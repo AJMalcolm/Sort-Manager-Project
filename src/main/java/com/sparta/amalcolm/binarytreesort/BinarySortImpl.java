@@ -1,6 +1,7 @@
 package com.sparta.amalcolm.binarytreesort;
 
 import com.sparta.amalcolm.exceptions.EmptyArrayException;
+import com.sparta.amalcolm.sort.BubbleSort;
 import com.sparta.amalcolm.util.Printer;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -205,6 +206,10 @@ public class BinarySortImpl implements BinaryTree {
         for (int i = 0, j = numberOfNodes - numberOfRepeatNodes - 1; i < numberOfNodes - numberOfRepeatNodes; i++, j--){
             sortedTreeDesc[i] = sortedTreeAsc[j];
         }
+    }
+
+    public static BinarySortImpl getInstance(int[] array){
+        return new BinarySortImpl(array);
     }
 
     public class Node {

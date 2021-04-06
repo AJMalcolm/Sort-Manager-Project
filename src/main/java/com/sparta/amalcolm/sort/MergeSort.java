@@ -1,6 +1,7 @@
 package com.sparta.amalcolm.sort;
 import com.sparta.amalcolm.Interfaces.Sorter;
 
+import com.sparta.amalcolm.util.IntArraySplitter;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 public class MergeSort implements Sorter {
 
     public static final Logger logger = LogManager.getLogger(MergeSort.class);
+
+    private static MergeSort mergeSortInstance = new MergeSort();
 
     @Override
     public int[] sortArray(int[] inputArray) {
@@ -19,7 +22,7 @@ public class MergeSort implements Sorter {
             }
 
             ArrayList<int[]> splitArrays = new ArrayList<>();
-            splitArrays = ArraySplitter.ArraySplitter(inputArray);
+            splitArrays = IntArraySplitter.ArraySplitter(inputArray);
 
             int[] leftArray = new int[splitArrays.get(0).length];
             int[] rightArray = new int[splitArrays.get(1).length];
@@ -82,5 +85,9 @@ public class MergeSort implements Sorter {
         }
 
         return resultArray;
+    }
+
+    public static MergeSort getInstance(){
+        return mergeSortInstance;
     }
 }

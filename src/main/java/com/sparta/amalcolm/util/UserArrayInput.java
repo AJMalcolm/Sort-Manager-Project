@@ -7,11 +7,11 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.Scanner;
 
-public class userArrayInput {
+public class UserArrayInput {
 
-    public static final Logger logger = LogManager.getLogger(userArrayInput.class);
+    public static final Logger logger = LogManager.getLogger(UserArrayInput.class);
 
-    public static int[] userArrayInput() throws EmptyArrayException {
+    public static int[] UserArrayInput() throws EmptyArrayException {
 
         Scanner userArrayInput = new Scanner(System.in);
         Printer.printMessage("Please enter your array here. The array may only contain Integer values and each value must be separated by a space.");

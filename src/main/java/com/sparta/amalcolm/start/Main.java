@@ -1,14 +1,15 @@
 package com.sparta.amalcolm.start;
 
+import com.sparta.amalcolm.Interfaces.BinaryTree;
+import com.sparta.amalcolm.Interfaces.Sorter;
+import com.sparta.amalcolm.factory.SorterFactory;
+import com.sparta.amalcolm.factory.SorterTypes;
 import com.sparta.amalcolm.util.*;
+import com.sparta.amalcolm.exceptions.*;
+import com.sparta.amalcolm.performancetesting.PerformanceTests;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
-import com.sparta.amalcolm.exceptions.*;
-import com.sparta.amalcolm.sort.BubbleSort;
-import com.sparta.amalcolm.sort.MergeSort;
-import com.sparta.amalcolm.binarytreesort.BinarySortImpl;
-import com.sparta.amalcolm.util.PerformanceTests;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,11 +28,12 @@ public class Main {
         Printer.printMessage("\nHello and welcome to my Sort Manager Program! - Alasdair Malcolm\n");
 
         while (continueChoice == 1) {
-            Printer.printMessage("Can you please enter the corresponding number to the sort option of your choice:");
+            Printer.printMessage("Can you please enter the corresponding number to the option of your choice:");
             Printer.printMessage("1: Bubble Sort");
             Printer.printMessage("2: Merge Sort");
             Printer.printMessage("3: Binary Tree Sort");
             Printer.printMessage("4: Sort Types Performance Test");
+            Printer.printMessage("5: Exit Sort Manager Program");
 
             Scanner userInput = new Scanner(System.in);
             try{
@@ -45,8 +47,8 @@ public class Main {
             switch (option) {
                 case 1:
                     // User has selected the Bubble Sort Option
-                    inputArray = userArrayInput.userArrayInput();
-                    // userArrayInput will return null if a user has entered an incorrect value
+                    inputArray = UserArrayInput.UserArrayInput();
+                    // UserArrayInput will return null if a user has entered an incorrect value
                     if(inputArray == null){
                         logger.info("User has entered an incorrect array value (e.g. non-integer or multiple spaces)");
                         break;
@@ -55,8 +57,8 @@ public class Main {
                     break;
                 case 2:
                     // User has selected the Merge Sort Option
-                    inputArray = userArrayInput.userArrayInput();
-                    // userArrayInput will return null if a user has entered an incorrect value
+                    inputArray = UserArrayInput.UserArrayInput();
+                    // UserArrayInput will return null if a user has entered an incorrect value
                     if(inputArray == null){
                         logger.info("User has entered an incorrect array value (e.g. non-integer or multiple spaces)");
                         break;
@@ -65,8 +67,8 @@ public class Main {
                     break;
                 case 3:
                     // User has selected the Binary Tree Sort Option
-                    inputArray = userArrayInput.userArrayInput();
-                    // userArrayInput will return null if a user has entered an incorrect value
+                    inputArray = UserArrayInput.UserArrayInput();
+                    // UserArrayInput will return null if a user has entered an incorrect value
                     if(inputArray == null){
                         logger.info("User has entered an incorrect array value (e.g. non-integer or multiple spaces)");
                         break;
@@ -76,6 +78,10 @@ public class Main {
                 case 4:
                     //User has selected the Sort Types performance test.
                     PerformanceTests.PerformanceTest();
+                case 5:
+                    //User has chosen to exit the program.
+                    Printer.printMessage("\nThank you for using my Sort Manager Program!");
+                    System.exit(0);
                 case 10:
                     //User has entered a non integer number previously.
                     break;
@@ -100,7 +106,8 @@ public class Main {
     }
 
     public static void BubbleSortSetup(int[] array) {
-        BubbleSort myBubbleSort = new BubbleSort();
+
+        Sorter myBubbleSort = SorterFactory.getSorter(SorterTypes.BUBBLE);
         double start = System.nanoTime();
         int[] bubbleSortedArray = myBubbleSort.sortArray(array);
         double end = System.nanoTime();
@@ -108,14 +115,20 @@ public class Main {
         String timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
 
         if(bubbleSortedArray != null){
-            System.out.println("\nHere is the bubble sorted array in ascending order: ");
-            Printer.printIntArray(bubbleSortedArray);
-            Printer.printTimeTaken(timeTaken);
+            if(bubbleSortedArray.length == 1){
+                Printer.printMessage("\nYou are a funny person, an array with 1 element comes out the same as it goes in: " + bubbleSortedArray[0] + "!");
+            }
+            else{
+                Printer.printMessage("\nHere is the bubble sorted array in ascending order: ");
+                Printer.printIntArray(bubbleSortedArray);
+                Printer.printTimeTaken(timeTaken);
+            }
         }
     }
 
     public static void MergeSortSetup(int[] array){
-        MergeSort myMergeSort = new MergeSort();
+
+        Sorter myMergeSort = SorterFactory.getSorter(SorterTypes.MERGE);
         double start = System.nanoTime();
         int[] mergeSortedArray = myMergeSort.sortArray(array);
         double end = System.nanoTime();
@@ -123,9 +136,14 @@ public class Main {
         String timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
 
         if(mergeSortedArray != null){
-            System.out.println("\nHere is the merge sorted array in ascending order: ");
-            Printer.printIntArray(mergeSortedArray);
-            Printer.printTimeTaken(timeTaken);
+            if(mergeSortedArray.length == 1){
+                Printer.printMessage("\nYou are a funny person, an array with 1 element comes out the same as it goes in: " + mergeSortedArray[0] + "!");
+            }
+            else{
+                System.out.println("\nHere is the merge sorted array in ascending order: ");
+                Printer.printIntArray(mergeSortedArray);
+                Printer.printTimeTaken(timeTaken);
+            }
         }
     }
 
@@ -137,7 +155,7 @@ public class Main {
 
         int ascDescChoice = 0;
         int continueChoice = 1;
-        BinarySortImpl myBinarySortImpl = new BinarySortImpl(array);
+        BinaryTree myBinarySortImpl = SorterFactory.getSorter(SorterTypes.BINARYTREE, array);
 
         Scanner userInput = new Scanner(System.in);
 
@@ -148,26 +166,38 @@ public class Main {
             ascDescChoice = userInput.nextInt();
             switch(ascDescChoice){
                 case 1:
+                    //User has chosen an Ascending Order Output
                     start = System.nanoTime();
                     int[] binarySortedArrayAsc = myBinarySortImpl.getSortedTreeAsc();
                     end = System.nanoTime();
 
                     timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
 
-                    System.out.println("\nHere is the binary tree sorted array in ascending order: ");
-                    Printer.printIntArray(binarySortedArrayAsc);
-                    Printer.printTimeTaken(timeTaken);
+                    if(binarySortedArrayAsc.length == 1){
+                        Printer.printMessage("\nYou are a funny person, an array with 1 element comes out the same as it goes in: " + binarySortedArrayAsc[0] + "!");
+                    }
+                    else {
+                        System.out.println("\nHere is the binary tree sorted array in ascending order: ");
+                        Printer.printIntArray(binarySortedArrayAsc);
+                        Printer.printTimeTaken(timeTaken);
+                    }
                     break;
                 case 2:
+                    //User has chosen a Descending Order Output
                     start = System.nanoTime();
                     int[] binarySortedArrayDesc = myBinarySortImpl.getSortedTreeDesc();
                     end = System.nanoTime();
 
                     timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
 
-                    System.out.println("\nHere is the binary tree  sorted array in descending order: ");
-                    Printer.printIntArray(binarySortedArrayDesc);
-                    Printer.printTimeTaken(timeTaken);
+                    if(binarySortedArrayDesc.length == 1){
+                        Printer.printMessage("\nYou are a funny person, an array with 1 element comes out the same as it goes in: " + binarySortedArrayDesc[0] + "!");
+                    }
+                    else {
+                        System.out.println("\nHere is the binary tree  sorted array in descending order: ");
+                        Printer.printIntArray(binarySortedArrayDesc);
+                        Printer.printTimeTaken(timeTaken);
+                    }
                     break;
                 default:
                     throw new IllegalStateException(ascDescChoice + "is not an appropriate option.");
@@ -176,6 +206,5 @@ public class Main {
             Printer.printMessage("1 for YES, any other number for NO");
             continueChoice = userInput.nextInt();
         }
-
     }
 }
