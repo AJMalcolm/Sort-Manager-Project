@@ -6,7 +6,7 @@ import com.sparta.amalcolm.factory.SorterFactory;
 import com.sparta.amalcolm.factory.SorterTypes;
 import com.sparta.amalcolm.util.*;
 import com.sparta.amalcolm.exceptions.*;
-import com.sparta.amalcolm.performancetesting.PerformanceTests;
+import com.sparta.amalcolm.performancetesting.PerformanceCheck;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -77,7 +77,7 @@ public class Main {
                     break;
                 case 4:
                     //User has selected the Sort Types performance test.
-                    PerformanceTests.PerformanceTest();
+                    PerformanceCheck.PerformanceTest();
                 case 5:
                     //User has chosen to exit the program.
                     Printer.printMessage("\nThank you for using my Sort Manager Program!");
