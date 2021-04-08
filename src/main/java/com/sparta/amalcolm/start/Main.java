@@ -78,6 +78,7 @@ public class Main {
                 case 4:
                     //User has selected the Sort Types performance test.
                     PerformanceCheck.PerformanceTest();
+                    break;
                 case 5:
                     //User has chosen to exit the program.
                     Printer.printMessage("\nThank you for using my Sort Manager Program!");
@@ -121,7 +122,7 @@ public class Main {
             else{
                 Printer.printMessage("\nHere is the bubble sorted array in ascending order: ");
                 Printer.printIntArray(bubbleSortedArray);
-                Printer.printTimeTaken(timeTaken);
+                Printer.printTimeTaken(timeTaken + "ms");
             }
         }
     }
@@ -142,7 +143,7 @@ public class Main {
             else{
                 System.out.println("\nHere is the merge sorted array in ascending order: ");
                 Printer.printIntArray(mergeSortedArray);
-                Printer.printTimeTaken(timeTaken);
+                Printer.printTimeTaken(timeTaken + "ms");
             }
         }
     }
@@ -179,7 +180,7 @@ public class Main {
                     else {
                         System.out.println("\nHere is the binary tree sorted array in ascending order: ");
                         Printer.printIntArray(binarySortedArrayAsc);
-                        Printer.printTimeTaken(timeTaken);
+                        Printer.printTimeTaken(timeTaken + "ms");
                     }
                     break;
                 case 2:
@@ -196,7 +197,7 @@ public class Main {
                     else {
                         System.out.println("\nHere is the binary tree  sorted array in descending order: ");
                         Printer.printIntArray(binarySortedArrayDesc);
-                        Printer.printTimeTaken(timeTaken);
+                        Printer.printTimeTaken(timeTaken + "ms");
                     }
                     break;
                 default:

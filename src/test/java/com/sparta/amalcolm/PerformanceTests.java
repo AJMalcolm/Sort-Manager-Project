@@ -54,8 +54,9 @@ public class PerformanceTests {
             int[] sortedArray = myBubbleSort.sortArray(unsortedArray);
             long end = System.nanoTime();
             logger.info("Bubble Sorted Array: " + Arrays.toString(sortedArray));
-            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(end, start);
+            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
             logger.info("Time taken: " + timeTaken);
+            System.out.println("Time taken for Bubble Size " + unsortedArray.length + ": " + timeTaken + "ms");
         }
     }
 
@@ -69,8 +70,9 @@ public class PerformanceTests {
             int[] sortedArray = myMergeSort.sortArray(unsortedArray);
             long end = System.nanoTime();
             logger.info("Merge Sorted Array: " + Arrays.toString(sortedArray));
-            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(end, start);
+            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
             logger.info("Time taken: " + timeTaken);
+            System.out.println("Time taken for Merge Size " + unsortedArray.length + ": " + timeTaken + "ms");
         }
     }
 
@@ -84,8 +86,9 @@ public class PerformanceTests {
             int[] sortedArray = myBinaryTreeSort.getSortedTreeAsc();
             long end = System.nanoTime();
             logger.info("Binary Tree Sorted Array: " + Arrays.toString(sortedArray));
-            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(end, start);
+            String timeTaken = TimeTakenCalculator.TimeTakenCalculation(start, end);
             logger.info("Time taken: " + timeTaken);
+            System.out.println("Time taken for Binary Tree Size " + unsortedArray.length + ": " + timeTaken + "ms");
         }
     }
 }
